@@ -18,6 +18,8 @@
  '(compilation-scroll-output (quote first-error))
  '(custom-safe-themes (quote ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(delete-old-versions t)
+ '(display-time-day-and-date t)
+ '(display-time-mode t)
  '(fill-column 79)
  '(fsharp-indent-offset 4)
  '(global-rainbow-delimiters-mode t)
