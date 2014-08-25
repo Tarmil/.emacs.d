@@ -5,3 +5,4 @@ auto-save-list
 tramp
 server/server
 ac-comphist.dat
+/init-el.el
