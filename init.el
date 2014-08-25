@@ -36,8 +36,13 @@
 ;; Some misc options that are not in Customize.
 (setq ring-bell-function 'ignore)
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq fsharp-ac-executable "tail")	; dirty way to deactivate ac in F#
-(setq inferior-fsharp-program "\"c:/Program Files (x86)/Microsoft SDKs/F#/3.1/Framework/v4.0/fsi.exe\"")
+;; (setq fsharp-ac-executable "tail")	; dirty way to deactivate ac in F#
+(setq inferior-fsharp-program "fsharpi")
+(defun fsharp-set-keybindings ()
+  (define-key fsharp-mode-map (kbd "M-<return>") 'fsharp-eval-region)
+  (define-key fsharp-mode-map (kbd "C-M-x") 'fsharp-eval-phrase)
+  (define-key fsharp-mode-map (kbd "C-<tab>") 'fsharp-ac/complete-at-point))
+(add-hook 'fsharp-mode-hook 'fsharp-set-keybindings)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -45,6 +50,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :height 90 :family "Consolas"))))
+ '(fsharp-error-face ((t (:inherit error))))
  '(highlight ((t (:background "#333" :foreground "white")))))
 
 ;;; Install packages from MELPA.
