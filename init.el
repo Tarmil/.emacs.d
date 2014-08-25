@@ -76,6 +76,13 @@
 ;;; Color theme.
 (load-theme 'sanityinc-tomorrow-night)
 
+;; ;;; AUCTeX (LaTeX mode)
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+(defun my-latex-hook ()
+  (define-key LaTeX-mode-map (kbd "M-<return>") 'LaTeX-insert-item))
+(add-hook 'LaTeX-mode-hook 'my-latex-hook)
+
 ;;; Haskell mode
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 (define-key haskell-mode-map (kbd "C-c C-r") 'inferior-haskell-reload-file)
