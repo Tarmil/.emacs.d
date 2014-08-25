@@ -114,5 +114,6 @@
 (global-set-key (kbd "M-3") 'delete-other-windows)
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "S-<tab>") 'tab-to-tab-stop)
+(global-set-key (kbd "<backtab>") 'tab-to-tab-stop)
 (global-set-key (kbd "C-M-S-b") 'compile)
 (global-set-key (kbd "C-B") 'recompile)
