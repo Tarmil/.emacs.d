@@ -1,4 +1,4 @@
-Loïc Denuzière's Emacs configuration
+﻿Loïc Denuzière's Emacs configuration
 
 * Display
 Toolbar, menu bar, startup screen... all this stuff is useless to me. Remove
@@ -34,7 +34,8 @@ uninstalls all those that aren't.
    'highlight-symbol
    'magit
    'package+
-   'rainbow-delimiters)
+   'rainbow-delimiters
+   'auctex)
 #+END_SRC
 
 * Color theme
@@ -82,8 +83,6 @@ No pesky bell.
 ** AUCTeX (LaTeX)
 #+BEGIN_SRC emacs-lisp
   ;;; AUCTeX (LaTeX mode)
-  (load "auctex.el" nil t t)
-  (load "preview-latex.el" nil t t)
   (defun my-latex-hook ()
     (define-key LaTeX-mode-map (kbd "M-<return>") 'LaTeX-insert-item))
   (add-hook 'LaTeX-mode-hook 'my-latex-hook)
