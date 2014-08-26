@@ -72,7 +72,10 @@ No pesky bell.
 #+BEGIN_SRC emacs-lisp
   ;; (setq fsharp-ac-executable "tail")   ; dirty way to deactivate autocomplete in F#
   (setq fsharp-indent-offset 4)
-  (setq inferior-fsharp-program "fsharpi")
+  (setq inferior-fsharp-program
+        (case system-type
+          ("windows-nt" "\"c:/Program Files (x86)/Microsoft SDKs/F#/3.1/Framework/v4.0/fsi.exe\"")
+          (t "fsharpi")))
   (defun fsharp-set-keybindings ()
     (define-key fsharp-mode-map (kbd "M-<return>") 'fsharp-eval-region)
     (define-key fsharp-mode-map (kbd "C-M-x") 'fsharp-eval-phrase)
