@@ -35,7 +35,30 @@ uninstalls all those that aren't.
    'magit
    'package+
    'rainbow-delimiters
-   'auctex)
+   'auctex
+   'helm)
+#+END_SRC
+
+* Helm
+
+#+BEGIN_SRC emacs-lisp
+  (require 'helm)
+  
+  ;; must set before helm-config,  otherwise helm use default
+  ;; prefix "C-x c", which is inconvenient because you can
+  ;; accidentially pressed "C-x C-c"
+  (setq helm-command-prefix-key "C-c h")
+  
+  (require 'helm-config)
+  
+  (helm-mode 1)
+  (define-key helm-map (kbd "<tab>")
+    'helm-execute-persistent-action) ; rebihnd tab to do persistent action
+  (define-key helm-map (kbd "C-i")
+    'helm-execute-persistent-action) ; make TAB works in terminal
+  (setq
+   helm-quick-update t ; do not display invisible candidates
+   )
 #+END_SRC
 
 * Color theme
@@ -109,7 +132,6 @@ No pesky bell.
    '(fill-column 79)
    '(global-rainbow-delimiters-mode t)
    '(haskell-program-name "ghci")
-   '(ido-mode (quote both) nil (ido))
    '(kept-new-versions 6)
    '(kept-old-versions 2)
    '(sentence-end-double-space t)
