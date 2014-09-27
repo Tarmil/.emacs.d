@@ -218,6 +218,8 @@ Paragraph width is 80 characters.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-s") 'highlight-symbol-at-point)
   (global-set-key (kbd "M-S") 'highlight-symbol-remove-all)
+  (add-hook 'prog-mode-hook 'highlight-symbol-mode) ; automatically highlight symbol at point
+  (setq highlight-symbol-idle-delay 0)
 #+END_SRC
 
 ** Compilation window
