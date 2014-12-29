@@ -198,6 +198,11 @@ Put them in ~/.saves.
 #+END_SRC
 
 ** Parentheses
+Automatically close parens when opening them.
+#+BEGIN_SRC emacs-lisp
+  (electric-pair-mode 1)
+#+END_SRC
+
 Highlight the paren matching the one at point.
 
 #+BEGIN_SRC emacs-lisp
