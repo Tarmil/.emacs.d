@@ -201,7 +201,7 @@ Put them in ~/.saves.
 Highlight the paren matching the one at point.
 
 #+BEGIN_SRC emacs-lisp
-  (setq show-paren-mode 1)
+  (show-paren-mode 1)
 #+END_SRC
 
 Rainbow-delimiters to make it easier to see nested parens.
