@@ -76,6 +76,9 @@ Complete remapping of the keyboard shortcuts that uses Meta much more than Ctrl.
   (fset 'ergoemacs-org-mode-paste 'ergoemacs-paste)
   ;; For some reason, org-mode fracks up tab completion in minibuffer.
   (define-key minibuffer-local-map [tab] 'minibuffer-complete)
+  ;; Why the hell would they remove the comment-dwim shortcut?
+  (global-set-key (kbd "M--") 'comment-dwim)
+  
 #+END_SRC
 
 * Helm
