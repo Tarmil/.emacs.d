@@ -121,7 +121,15 @@ created buffers.
 #+END_SRC
 
 * Language modes
+** Config files
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist
+               '("\\.?hgrc\\'" . conf-mode))
+#+END_SRC
+
 ** F#
+
 #+BEGIN_SRC emacs-lisp
   ;; (setq fsharp-ac-executable "tail")   ; dirty way to deactivate autocomplete in F#
   (setq fsharp-indent-offset 4)
