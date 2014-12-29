@@ -45,7 +45,8 @@ uninstalls all those that aren't.
    'rainbow-delimiters
    'auctex
    'helm
-   'async)
+   'async
+   'restclient)
 #+END_SRC
 
 * Color theme
