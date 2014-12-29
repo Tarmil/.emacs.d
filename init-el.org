@@ -207,7 +207,7 @@ Highlight the paren matching the one at point.
 Rainbow-delimiters to make it easier to see nested parens.
 
 #+BEGIN_SRC emacs-lisp
-  (setq global-rainbow-delimiters-mode t)
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 #+END_SRC
 
 ** Spacing
