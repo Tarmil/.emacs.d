@@ -1,4 +1,4 @@
-dotemacs
-========
+conf
+====
 
-My .emacs.d configuration
+My configuration files

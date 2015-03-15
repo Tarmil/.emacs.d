@@ -1,8 +1,9 @@
-elpa/
-eshell/history
-eshell/lastdir
-auto-save-list
-tramp
-server/server
-ac-comphist.dat
-/init-el.el
+.emacs.d/elpa/
+.emacs.d/eshell/history
+.emacs.d/eshell/lastdir
+.emacs.d/auto-save-list
+.emacs.d/tramp
+.emacs.d/url/cookies
+.emacs.d/server/server
+.emacs.d/ac-comphist.dat
+.emacs.d/init-el.el

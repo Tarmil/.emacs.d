@@ -46,13 +46,14 @@ uninstalls all those that aren't.
    'auctex
    'helm
    'async
-   'restclient)
+   'restclient
+   'idris-mode)
 #+END_SRC
 
 * Color theme
 #+BEGIN_SRC emacs-lisp
   ;;; Color theme.
-  (setq custom-safe-themes '("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default))
+  (add-to-list 'custom-safe-themes "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a")
   (load-theme 'sanityinc-tomorrow-night)
 #+END_SRC
 
