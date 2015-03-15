@@ -1,6 +1,6 @@
 #! /bin/sh
 
-ln -s "$(pwd)"/.emacs.d ~
-ln -s "$(pwd)"/.xmobarrc ~
-ln -s "$(pwd)"/.xmonad ~
-ln -s "$(pwd)"/.Xdefaults ~
+for x in .emacs.d .xmobarrc .xmonad .Xdefaults
+do
+    ln -s "$(pwd)/$x" ~ 2> /dev/null && echo "Linked: $x" || echo "Exists: $x"
+done
