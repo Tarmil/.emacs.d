@@ -7,3 +7,8 @@
 .emacs.d/server/server
 .emacs.d/ac-comphist.dat
 .emacs.d/init-el.el
+
+.xmonad/xmonad-x86_64-linux
+.xmonad/xmonad.errors
+.xmonad/xmonad.hi
+.xmonad/xmonad.o
