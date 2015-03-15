@@ -1,5 +1,6 @@
 #! /bin/sh
 
-ln -s "$(pwd)"/.emacs.d ~/.emacs.d
-ln -s "$(pwd)"/.xmobarrc ~/.xmobarrc
-ln -s "$(pwd)"/.xmonad ~/.xmonad
+ln -s "$(pwd)"/.emacs.d ~
+ln -s "$(pwd)"/.xmobarrc ~
+ln -s "$(pwd)"/.xmonad ~
+ln -s "$(pwd)"/.Xdefaults ~
