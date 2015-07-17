@@ -170,6 +170,15 @@ created buffers.
 #+END_SRC
 
 * Misc options
+** no electric indent in F#
+It tries to indent the current line too, which messes up in F#.
+
+#+BEGIN_SRC emacs-lisp
+  (defun no-electric-indent ()
+    (electric-indent-local-mode 0))
+  (add-hook 'fsharp-mode-hook 'no-electric-indent)
+#+END_SRC
+
 ** y-or-n-p
 I don't want to type "yes<return>" when "y" would suffice.
 
