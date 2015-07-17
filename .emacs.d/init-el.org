@@ -87,18 +87,19 @@ Complete remapping of the keyboard shortcuts that uses Meta much more than Ctrl.
 
 #+BEGIN_SRC emacs-lisp
   (require 'helm)
-  
+
   ;; must set before helm-config, otherwise helm uses default
   ;; prefix "C-x c", which is inconvenient because you can
-  ;; accidentially pressed "C-x C-c"
+  ;; accidentially press "C-x C-c"
   (setq helm-command-prefix-key "C-c h")
-  
+
   (require 'helm-config)
-  
+
   (helm-mode 1)
   (setq
    helm-quick-update t ; do not display invisible candidates
    )
+  (global-set-key (kbd "C-f") 'helm-occur)
 #+END_SRC
 
 * Window management
