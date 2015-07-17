@@ -47,7 +47,8 @@ uninstalls all those that aren't.
    'helm
    'async
    'restclient
-   'idris-mode)
+   'idris-mode
+   'markdown-mode)
 #+END_SRC
 
 * Color theme
