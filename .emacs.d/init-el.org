@@ -154,8 +154,11 @@ created buffers.
 
 #+BEGIN_SRC emacs-lisp
   (setq haskell-program-name "ghci")
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-  (define-key haskell-mode-map (kbd "C-c C-r") 'inferior-haskell-reload-file)
+  (defun my-haskell-init ()
+    (turn-on-haskell-indent)
+    (define-key haskell-mode-map (kbd "C-c C-r") 'inferior-haskell-reload-file))
+  (add-hook 'haskell-mode-hook 'my-haskell-init)
+
 #+END_SRC
 
 ** AUCTeX (LaTeX)
