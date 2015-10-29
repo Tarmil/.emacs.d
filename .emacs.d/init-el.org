@@ -1,4 +1,4 @@
-﻿Tarmil's Emacs configuration
+Tarmil's Emacs configuration
 
 * Display
 Toolbar, menu bar, startup screen... all this stuff is useless to me. Remove
@@ -27,35 +27,45 @@ uninstalls all those that aren't.
 
 #+BEGIN_SRC emacs-lisp
   (package-initialize)
-  (add-to-list 'package-archives
-               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (setf package-archives
+        '(("gnu" . "http://elpa.gnu.org/packages/")
+          ("melpa" . "http://melpa.org/packages/")))
   (unless (package-installed-p 'package+)
     (package-refresh-contents)
     (package-install 'package+))
   ;; The list of packages. Install missing packages, uninstall extra ones.
   (package-manifest
    'ahg
+   'async
+   'auctex
    'color-theme-sanityinc-tomorrow
    'ergoemacs-mode
+   'font-utils
    'fsharp-mode
    'haskell-mode
-   'highlight-symbol
-   'magit
-   'package+
-   'rainbow-delimiters
-   'auctex
    'helm
-   'async
-   'restclient
+   'highlight-symbol
    'idris-mode
-   'markdown-mode)
+   'list-utils
+   'magit
+   'markdown-mode
+   'package+
+   'pcache
+   'persistent-soft
+   'rainbow-delimiters
+   'restclient
+   'spaceline
+   'ucs-utils
+   'unicode-fonts)
 #+END_SRC
 
 * Color theme
 #+BEGIN_SRC emacs-lisp
   ;;; Color theme.
-  (add-to-list 'custom-safe-themes "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a")
+  (setq custom-safe-themes '("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default))
   (load-theme 'sanityinc-tomorrow-night)
+  (require 'spaceline-config)
+  (spaceline-emacs-theme)
 #+END_SRC
 
 * ErgoEmacs
@@ -74,32 +84,29 @@ Complete remapping of the keyboard shortcuts that uses Meta much more than Ctrl.
   (global-set-key (kbd "<backtab>") 'tab-to-tab-stop)
   (global-set-key (kbd "C-M-S-b") 'compile)
   (global-set-key (kbd "C-B") 'recompile)
+  (global-set-key (kbd "S-<space>") 'self-insert-command)
   ;; Symbol's function definition is void: ergoemacs-org-mode-paste
   (fset 'ergoemacs-org-mode-paste 'ergoemacs-paste)
   ;; For some reason, org-mode fracks up tab completion in minibuffer.
   (define-key minibuffer-local-map [tab] 'minibuffer-complete)
-  ;; Why the hell would they remove the comment-dwim shortcut?
-  (global-set-key (kbd "M--") 'comment-dwim)
-  
 #+END_SRC
 
 * Helm
 
 #+BEGIN_SRC emacs-lisp
   (require 'helm)
-
-  ;; must set before helm-config, otherwise helm uses default
+  
+  ;; must set before helm-config,  otherwise helm use default
   ;; prefix "C-x c", which is inconvenient because you can
-  ;; accidentially press "C-x C-c"
+  ;; accidentially pressed "C-x C-c"
   (setq helm-command-prefix-key "C-c h")
-
+  
   (require 'helm-config)
-
+  
   (helm-mode 1)
   (setq
    helm-quick-update t ; do not display invisible candidates
    )
-  (global-set-key (kbd "C-f") 'helm-occur)
 #+END_SRC
 
 * Window management
@@ -242,7 +249,7 @@ Tabs are 4 characters.
 Paragraph width is 80 characters.
 
 #+BEGIN_SRC emacs-lisp
-  (setq fill-column 79)
+  (setq-default fill-column 79)
 #+END_SRC
 
 ** Highlight-symbol
@@ -258,4 +265,10 @@ Paragraph width is 80 characters.
 
 #+BEGIN_SRC emacs-lisp
   (setq compilation-scroll-output 'first-error)
+#+END_SRC
+
+** Magit options
+
+#+BEGIN_SRC emacs-lisp
+  (setq magit-last-seen-setup-instructions "1.4.0")
 #+END_SRC

@@ -1,7 +1,6 @@
 (require 'org)
-(org-babel-load-file "~/.emacs.d/init-el.org")
-
 (setq magit-last-seen-setup-instructions "1.4.0")
+(org-babel-load-file "~/.emacs.d/init-el.org")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
