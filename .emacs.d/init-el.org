@@ -28,8 +28,8 @@ uninstalls all those that aren't.
 #+BEGIN_SRC emacs-lisp
   (package-initialize)
   (setf package-archives
-        '(("gnu" . "http://elpa.gnu.org/packages/")
-          ("melpa" . "http://melpa.org/packages/")))
+        '(("gnu" . "https://elpa.gnu.org/packages/")
+          ("melpa" . "https://melpa.org/packages/")))
   (unless (package-installed-p 'package+)
     (package-refresh-contents)
     (package-install 'package+))
