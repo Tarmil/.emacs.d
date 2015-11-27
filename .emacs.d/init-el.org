@@ -260,6 +260,19 @@ Paragraph width is 80 characters.
 #+BEGIN_SRC emacs-lisp
   (setq magit-last-seen-setup-instructions "1.4.0")
 #+END_SRC
+
+** Restclient mode bug workaround
+
+#+BEGIN_SRC emacs-lisp
+  (defun url-cookie-expired-p (cookie)
+    "Return non-nil if COOKIE is expired."
+    (let ((exp (url-cookie-expires cookie)))
+      (and (> (length exp) 0)
+       (condition-case ()
+           (> (float-time) (float-time (date-to-time exp)))
+         (error nil)))))
+#+END_SRC
+
 * Window management
 
 #+BEGIN_SRC emacs-lisp
