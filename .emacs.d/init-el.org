@@ -111,6 +111,17 @@ Complete remapping of the keyboard shortcuts that uses Meta much more than Ctrl.
 #+END_SRC
 
 * Language modes
+** Text/Markdown files
+
+#+BEGIN_SRC emacs-lisp
+  (defun text-mode-init ()
+    (toggle-word-wrap 1))
+  (add-hook 'text-mode-hook 'text-mode-init)
+  (require 'markdown-mode)
+  (define-key markdown-mode-map (kbd "M-n") 'forward-char)
+  (define-key markdown-mode-map (kbd "M-p") 'kill-word)
+#+END_SRC
+
 ** Config files
 
 #+BEGIN_SRC emacs-lisp
