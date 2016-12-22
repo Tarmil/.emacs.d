@@ -1,25 +1,197 @@
-(require 'org)
-(setq magit-last-seen-setup-instructions "1.4.0")
-(org-babel-load-file "~/.emacs.d/init-el.org")
+;;; -*- lexical-binding: t -*-
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :height 80 :family "Bitstream Vera Sans Mono"))))
- '(fsharp-error-face ((t (:inherit error))))
- '(helm-ff-directory ((t (:background nil))))
- '(highlight ((t (:background "#333" :foreground "white")))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Initialize package and use-package
+
+(package-initialize)
+(setf use-package-always-ensure t)
+(eval-when-compile
+  (require 'use-package))
+(require 'bind-key)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Color theme
+
+(use-package color-theme-sanityinc-tomorrow
+  :init
+  (add-to-list 'custom-safe-themes
+	       "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a")
+  :config
+  (color-theme-sanityinc-tomorrow-night))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Window configuration
+
+(use-package window-purpose
+  :config
+  (defun layout-dev ()
+    (interactive)
+    (unless purpose-mode
+      (let ((try-force-window '(purpose-display-reuse-window-purpose
+				purpose-display-same-window)))
+	(setf purpose-user-mode-purposes '((eshell-mode . terminal)
+					   (prog-mode . general)
+					   (text-mode . general)
+					   (dired-mode . general))
+	      purpose-user-regexp-purposes '(("^\\*eshell" . terminal))
+	      purpose-special-action-sequences `((terminal ,@try-force-window))))
+      (purpose-compile-user-configuration)
+      (purpose-mode))
+    (purpose-load-window-layout "dev")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; ErgoEmacs - Meta-based keybindings
+
+(use-package ergoemacs-mode :demand
+  :config
+  (setf ergoemacs-keyboard-layout "dv"
+	ergoemacs-theme nil
+	icicle-ido-like-mode nil)
+  (ergoemacs-mode 1)
+  ;; Symbol's function definition is void: ergoemacs-org-mode-paste
+  (fset 'ergoemacs-org-mode-paste 'ergoemacs-paste)
+  :bind (("M-v" . ergoemacs-beginning-or-end-of-buffer)
+	 ("M-w" . switch-to-buffer)
+	 ("M-m" . back-to-indentation)
+	 ("M-3" . delete-other-windows)
+	 ("M-0" . delete-window)
+	 ("S-<tab>" . tab-to-tab-stop)
+	 ("<backtab>" . tab-to-tab-stop)
+	 ("C-M-S-b" . compile)
+	 ("C-B" . recompile)
+	 ("S-<space>" . self-insert-command)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Completion helpers
+
+(use-package smex
+  :config
+  (smex-initialize))
+
+(use-package ido-vertical-mode :demand
+  :config
+  (ido-mode 1)
+  (ido-everywhere 1)
+  (ido-vertical-mode 1)
+  :bind (:map ido-common-completion-map
+	 ("M-t" . ido-next-match)
+	 ("M-c" . ido-prev-match)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; General programming helpers
+
+(use-package rainbow-delimiters
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+
+(use-package highlight-symbol
+  :config
+  (setf highlight-symbol-idle-delay 0)
+  (add-hook 'prog-mode-hook 'highlight-symbol-mode)
+  :bind (("M-s" . highlight-symbol-at-point)
+	 ("M-S" . highlight-symbol-remove-all)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Language modes
+
+(use-package tex :ensure auctex
+  :bind (:map LaTeX-mode-map
+	 ("M-<return>" . LaTeX-insert-item)))
+
+(use-package fsharp-mode
+  :config
+  (defun my-fsharp-mode-hook ()
+    (electric-indent-local-mode 0))
+  (add-hook 'fsharp-mode-hook 'my-fsharp-mode-hook)
+  (setf fsharp-indent-offset 4
+	inferior-fsharp-program
+	(case system-type
+	  ("windows-nt"
+	   "\"c:/Program Files (x86)/Microsoft SDKs/F#/4.0/Framework/v4.0/fsi.exe\"")
+	  (t "fsharpi")))
+  :bind (:map fsharp-mode-map
+	 ("M-<return>" . fsharp-eval-region)
+	 ("C-M-x" . fsharp-eval-phrase)
+	 ("C-<tab>" . fsharp-ac/complete-at-point)))
+
+(use-package haskell-mode
+  :config
+  (setf haskell-program-name "ghci")
+  (defun my-haskell-mode-hook ()
+    (turn-on-haskell-indent))
+  (add-hook 'haskell-mode 'my-haskell-mode-hook)
+  :bind (:map haskell-mode-map
+	 ("C-c C-r" . inferior-haskell-reload-file)))
+
+(use-package idris-mode)
+
+(use-package tuareg)
+
+(use-package markdown-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Other modes
+
+(use-package restclient
+  :config
+  (defun restclient-window ()
+    (interactive)
+    (let* ((main-buffer (switch-to-buffer-other-frame "*REST client*"))
+	   (main-window (get-buffer-window main-buffer t))
+	   (frame (window-frame main-window))
+	   (result-buffer (get-buffer-create "*HTTP Response*"))
+	   (result-window (split-window-below)))
+      (set-window-buffer result-window result-buffer)
+      (with-current-buffer main-buffer
+	(restclient-mode)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Version control helpers
+
+(use-package magit
+  :bind (("C-x g" . magit-status)
+	 :map magit-mode-map
+	 ("M-w" . switch-to-buffer)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Misc settings
+
+(fset 'yes-or-no-p 'y-or-n-p)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(delete-selection-mode t)
- '(indent-tabs-mode nil)
+ '(backup-by-copying t)
+ '(backup-directory-alist (quote (("." . "~/.saves"))))
+ '(column-number-mode t)
+ '(compilation-scroll-output (quote first-error))
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+ '(delete-old-versions t)
+ '(electric-pair-mode t)
+ '(fill-column 79)
+ '(inhibit-startup-screen nil)
  '(initial-scratch-message nil)
- '(org-CUA-compatible nil)
- '(org-replace-disputed-keys nil)
- '(recentf-mode t)
- '(shift-select-mode nil))
+ '(menu-bar-mode nil)
+ '(package-archives
+   (quote
+    (("melpa-stable" . "http://stable.melpa.org/packages/")
+     ("gnu" . "http://elpa.gnu.org/packages/"))))
+ '(package-selected-packages
+   (quote
+    (window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft ergoemacs-mode)))
+ '(ring-bell-function (quote ignore))
+ '(sentence-end-double-space nil)
+ '(show-paren-mode t)
+ '(tab-stop-list
+   (quote
+    (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
+ '(tool-bar-mode nil)
+ '(use-package-always-ensure t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:height 80 :family "DejaVu Sans Mono")))))

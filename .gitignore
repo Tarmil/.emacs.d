@@ -3,10 +3,11 @@
 .emacs.d/eshell/lastdir
 .emacs.d/auto-save-list
 .emacs.d/tramp
+.emacs.d/recentf
+.emacs.d/var/
 .emacs.d/url/cookies
 .emacs.d/server/server
 .emacs.d/ac-comphist.dat
-.emacs.d/init-el.el
 .emacs.d/server
 
 .xmonad/xmonad-x86_64-linux
