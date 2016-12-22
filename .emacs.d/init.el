@@ -15,7 +15,7 @@
 (use-package color-theme-sanityinc-tomorrow
   :init
   (add-to-list 'custom-safe-themes
-	       "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a")
+               "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a")
   :config
   (color-theme-sanityinc-tomorrow-night))
 
@@ -28,13 +28,13 @@
     (interactive)
     (unless purpose-mode
       (let ((try-force-window '(purpose-display-reuse-window-purpose
-				purpose-display-same-window)))
-	(setf purpose-user-mode-purposes '((eshell-mode . terminal)
-					   (prog-mode . general)
-					   (text-mode . general)
-					   (dired-mode . general))
-	      purpose-user-regexp-purposes '(("^\\*eshell" . terminal))
-	      purpose-special-action-sequences `((terminal ,@try-force-window))))
+                                purpose-display-same-window)))
+        (setf purpose-user-mode-purposes '((eshell-mode . terminal)
+                                           (prog-mode . general)
+                                           (text-mode . general)
+                                           (dired-mode . general))
+              purpose-user-regexp-purposes '(("^\\*eshell" . terminal))
+              purpose-special-action-sequences `((terminal ,@try-force-window))))
       (purpose-compile-user-configuration)
       (purpose-mode))
     (purpose-load-window-layout "dev")))
@@ -45,21 +45,21 @@
 (use-package ergoemacs-mode :demand
   :config
   (setf ergoemacs-keyboard-layout "dv"
-	ergoemacs-theme nil
-	icicle-ido-like-mode nil)
+        ergoemacs-theme nil
+        icicle-ido-like-mode nil)
   (ergoemacs-mode 1)
   ;; Symbol's function definition is void: ergoemacs-org-mode-paste
   (fset 'ergoemacs-org-mode-paste 'ergoemacs-paste)
   :bind (("M-v" . ergoemacs-beginning-or-end-of-buffer)
-	 ("M-w" . switch-to-buffer)
-	 ("M-m" . back-to-indentation)
-	 ("M-3" . delete-other-windows)
-	 ("M-0" . delete-window)
-	 ("S-<tab>" . tab-to-tab-stop)
-	 ("<backtab>" . tab-to-tab-stop)
-	 ("C-M-S-b" . compile)
-	 ("C-B" . recompile)
-	 ("S-<space>" . self-insert-command)))
+         ("M-w" . switch-to-buffer)
+         ("M-m" . back-to-indentation)
+         ("M-3" . delete-other-windows)
+         ("M-0" . delete-window)
+         ("S-<tab>" . tab-to-tab-stop)
+         ("<backtab>" . tab-to-tab-stop)
+         ("C-M-S-b" . compile)
+         ("C-B" . recompile)
+         ("S-<space>" . self-insert-command)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Completion helpers
@@ -74,8 +74,8 @@
   (ido-everywhere 1)
   (ido-vertical-mode 1)
   :bind (:map ido-common-completion-map
-	 ("M-t" . ido-next-match)
-	 ("M-c" . ido-prev-match)))
+         ("M-t" . ido-next-match)
+         ("M-c" . ido-prev-match)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; General programming helpers
@@ -89,14 +89,14 @@
   (setf highlight-symbol-idle-delay 0)
   (add-hook 'prog-mode-hook 'highlight-symbol-mode)
   :bind (("M-s" . highlight-symbol-at-point)
-	 ("M-S" . highlight-symbol-remove-all)))
+         ("M-S" . highlight-symbol-remove-all)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Language modes
 
 (use-package tex :ensure auctex
   :bind (:map LaTeX-mode-map
-	 ("M-<return>" . LaTeX-insert-item)))
+         ("M-<return>" . LaTeX-insert-item)))
 
 (use-package fsharp-mode
   :config
@@ -104,15 +104,15 @@
     (electric-indent-local-mode 0))
   (add-hook 'fsharp-mode-hook 'my-fsharp-mode-hook)
   (setf fsharp-indent-offset 4
-	inferior-fsharp-program
-	(case system-type
-	  ("windows-nt"
-	   "\"c:/Program Files (x86)/Microsoft SDKs/F#/4.0/Framework/v4.0/fsi.exe\"")
-	  (t "fsharpi")))
+        inferior-fsharp-program
+        (case system-type
+          ("windows-nt"
+           "\"c:/Program Files (x86)/Microsoft SDKs/F#/4.0/Framework/v4.0/fsi.exe\"")
+          (t "fsharpi")))
   :bind (:map fsharp-mode-map
-	 ("M-<return>" . fsharp-eval-region)
-	 ("C-M-x" . fsharp-eval-phrase)
-	 ("C-<tab>" . fsharp-ac/complete-at-point)))
+         ("M-<return>" . fsharp-eval-region)
+         ("C-M-x" . fsharp-eval-phrase)
+         ("C-<tab>" . fsharp-ac/complete-at-point)))
 
 (use-package haskell-mode
   :config
@@ -121,37 +121,51 @@
     (turn-on-haskell-indent))
   (add-hook 'haskell-mode 'my-haskell-mode-hook)
   :bind (:map haskell-mode-map
-	 ("C-c C-r" . inferior-haskell-reload-file)))
+         ("C-c C-r" . inferior-haskell-reload-file)))
 
 (use-package idris-mode)
 
 (use-package tuareg)
 
-(use-package markdown-mode)
+(use-package markdown-mode
+  :config
+  (defun text-mode-init ()
+    (toggle-word-wrap 1))
+  (add-hook 'text-mode-hook 'text-mode-init)
+  :bind (:map markdown-mode-map
+         ("M-n" . forward-char)
+         ("M-p" . kill-word)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Other modes
 
 (use-package restclient
   :config
+  (defun url-cookie-expired-p (cookie)
+    "Return non-nil if COOKIE is expired."
+    (let ((exp (url-cookie-expires cookie)))
+      (and (> (length exp) 0)
+           (condition-case ()
+               (> (float-time) (float-time (date-to-time exp)))
+             (error "")))))
   (defun restclient-window ()
     (interactive)
     (let* ((main-buffer (switch-to-buffer-other-frame "*REST client*"))
-	   (main-window (get-buffer-window main-buffer t))
-	   (frame (window-frame main-window))
-	   (result-buffer (get-buffer-create "*HTTP Response*"))
-	   (result-window (split-window-below)))
+           (main-window (get-buffer-window main-buffer t))
+           (frame (window-frame main-window))
+           (result-buffer (get-buffer-create "*HTTP Response*"))
+           (result-window (split-window-below)))
       (set-window-buffer result-window result-buffer)
       (with-current-buffer main-buffer
-	(restclient-mode)))))
+        (restclient-mode)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Version control helpers
 
 (use-package magit
   :bind (("C-x g" . magit-status)
-	 :map magit-mode-map
-	 ("M-w" . switch-to-buffer)))
+         :map magit-mode-map
+         ("M-w" . switch-to-buffer)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Misc settings
@@ -171,13 +185,14 @@
  '(delete-old-versions t)
  '(electric-pair-mode t)
  '(fill-column 79)
- '(inhibit-startup-screen nil)
+ '(indent-tabs-mode nil)
+ '(inhibit-startup-screen t)
  '(initial-scratch-message nil)
  '(menu-bar-mode nil)
  '(package-archives
    (quote
-    (("melpa-stable" . "http://stable.melpa.org/packages/")
-     ("gnu" . "http://elpa.gnu.org/packages/"))))
+    (("melpa-stable" . "https://stable.melpa.org/packages/")
+     ("gnu" . "https://elpa.gnu.org/packages/"))))
  '(package-selected-packages
    (quote
     (window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft ergoemacs-mode)))
