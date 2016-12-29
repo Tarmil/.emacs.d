@@ -4,7 +4,11 @@
 ;;; Initialize package and use-package
 
 (package-initialize)
-(setf use-package-always-ensure t)
+(setf use-package-always-ensure t
+      use-package-always-pin "melpa-stable"
+      package-archives '(("melpa" . "https://melpa.org/packages/")
+			 ("melpa-stable" . "https://stable.melpa.org/packages/")
+			 ("gnu" . "https://elpa.gnu.org/packages/")))
 (eval-when-compile
   (require 'use-package))
 (require 'bind-key)
@@ -13,6 +17,7 @@
 ;;; Color theme
 
 (use-package color-theme-sanityinc-tomorrow
+  :pin melpa
   :init
   (add-to-list 'custom-safe-themes
                "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a")
@@ -99,6 +104,7 @@
          ("M-<return>" . LaTeX-insert-item)))
 
 (use-package fsharp-mode
+  :pin melpa
   :config
   (defun my-fsharp-mode-hook ()
     (electric-indent-local-mode 0))
@@ -191,11 +197,12 @@
  '(menu-bar-mode nil)
  '(package-archives
    (quote
-    (("melpa-stable" . "https://stable.melpa.org/packages/")
+    (("melpa" . "https://melpa.org/packages/")
+     ("melpa-stable" . "https://stable.melpa.org/packages/")
      ("gnu" . "https://elpa.gnu.org/packages/"))))
  '(package-selected-packages
    (quote
-    (window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft ergoemacs-mode)))
+    (highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft ergoemacs-mode)))
  '(ring-bell-function (quote ignore))
  '(sentence-end-double-space nil)
  '(show-paren-mode t)
