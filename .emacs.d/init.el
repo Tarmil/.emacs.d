@@ -146,6 +146,7 @@
 ;;; Other modes
 
 (use-package restclient
+  :pin melpa
   :config
   (defun url-cookie-expired-p (cookie)
     "Return non-nil if COOKIE is expired."
