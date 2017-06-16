@@ -142,7 +142,9 @@
          ("M-n" . forward-char)
          ("M-p" . kill-word)))
 
-(use-package groovy-mode)
+(use-package groovy-mode
+  :init
+  (add-to-list 'auto-mode-alist '("Jenkinsfile$" . groovy-mode)))
 
 (use-package powershell)
 
