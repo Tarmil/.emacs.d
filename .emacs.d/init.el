@@ -180,6 +180,10 @@
          :map magit-mode-map
          ("M-w" . switch-to-buffer)))
 
+(use-package git-gutter-fringe
+  :config
+  (add-hook 'prog-mode-hook 'git-gutter))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Misc settings
 
