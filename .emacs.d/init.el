@@ -148,6 +148,15 @@
 
 (use-package powershell)
 
+(use-package sass-mode
+  :mode "\\.scss\\'")
+
+(use-package emmet-mode
+  :config
+  (add-hook 'sgml-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook 'emmet-mode)
+  (add-hook 'sass-mode-hook 'emmet-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Other modes
 
