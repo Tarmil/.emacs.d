@@ -209,6 +209,12 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; Fix msft regexp for fsc and wsfsc output
+(setf (alist-get 'msft compilation-error-regexp-alist-alist)
+        '("^ *\\(?:[0-9]+>\\)?\\(\\(?:[a-zA-Z]:\\)?[^:(	\n]+\\)(\\([0-9]+\\)\\(?:,\\([0-9]+\\)\\(?:,[0-9]+,[0-9]+\\)?\\)?) ?:\\( \\(?:[a-z]+ \\)?warning\\(?: [A-Z0-9]+:\\)\\)?" 1 2 3 (4))
+      compilation-error-regexp-alist
+        (cons 'msft compilation-error-regexp-alist))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
