@@ -200,6 +200,11 @@
   (add-hook 'prog-mode-hook 'git-gutter))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Windows-specific settings
+
+(setenv "PATH" (concat "C:\\Program Files\\git\\usr\\bin;" (getenv "PATH")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Misc settings
 
 (fset 'yes-or-no-p 'y-or-n-p)
