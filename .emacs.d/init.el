@@ -96,6 +96,12 @@
   :bind (("M-s" . highlight-symbol-at-point)
          ("M-S" . highlight-symbol-remove-all)))
 
+(use-package multiple-cursors
+  :bind (("M->" . mc/mark-next-like-this)
+         ("M-<" . mc/mark-previous-like-this)
+         ("C-M-<" . mc/mark-all-like-this)
+         ("C-M-," . mc/mark-all-dwim)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Language modes
 
@@ -222,7 +228,7 @@
      ("gnu" . "https://elpa.gnu.org/packages/"))))
  '(package-selected-packages
    (quote
-    (powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft ergoemacs-mode)))
+    (git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft ergoemacs-mode)))
  '(ring-bell-function (quote ignore))
  '(sentence-end-double-space nil)
  '(show-paren-mode t)
