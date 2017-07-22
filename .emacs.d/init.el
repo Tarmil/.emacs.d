@@ -221,6 +221,8 @@
 ;; XML mode for *.*proj
 (add-to-list 'auto-mode-alist '("\\.[^.]*proj\\'" . nxml-mode))
 
+(prefer-coding-system 'utf-8)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
