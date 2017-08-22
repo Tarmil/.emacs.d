@@ -104,6 +104,10 @@
          ("C-M-<" . mc/mark-all-like-this)
          ("C-M-," . mc/mark-all-dwim)))
 
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Language modes
 
@@ -255,7 +259,7 @@
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
+    (editorconfig rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
  '(ring-bell-function (quote ignore))
  '(sentence-end-double-space nil)
  '(show-paren-mode t)
