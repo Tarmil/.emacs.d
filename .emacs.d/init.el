@@ -8,7 +8,8 @@
       use-package-always-pin "melpa-stable"
       package-archives '(("melpa" . "https://melpa.org/packages/")
 			 ("melpa-stable" . "https://stable.melpa.org/packages/")
-			 ("gnu" . "https://elpa.gnu.org/packages/")))
+			 ("gnu" . "https://elpa.gnu.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")))
 (eval-when-compile
   (require 'use-package))
 (require 'bind-key)
@@ -166,6 +167,12 @@
 
 (use-package yaml-mode)
 
+(use-package toml-mode
+  :pin melpa)
+
+(use-package rust-mode
+  :pin melpa)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Other modes
 
@@ -244,10 +251,11 @@
    (quote
     (("melpa" . "https://melpa.org/packages/")
      ("melpa-stable" . "https://stable.melpa.org/packages/")
-     ("gnu" . "https://elpa.gnu.org/packages/"))))
+     ("gnu" . "https://elpa.gnu.org/packages/")
+     ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (yaml-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
+    (rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
  '(ring-bell-function (quote ignore))
  '(sentence-end-double-space nil)
  '(show-paren-mode t)
