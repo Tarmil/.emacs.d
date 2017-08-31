@@ -3,7 +3,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Initialize package and use-package
 
-(package-initialize)
 (setf use-package-always-ensure t
       use-package-always-pin "melpa-stable"
       package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -11,6 +10,10 @@
 			 ("gnu" . "https://elpa.gnu.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")))
 (eval-when-compile
+  (package-initialize)
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
   (require 'use-package))
 (require 'bind-key)
 
