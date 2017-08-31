@@ -155,13 +155,15 @@
          ("M-p" . kill-word)))
 
 (use-package groovy-mode
-  :init
-  (add-to-list 'auto-mode-alist '("Jenkinsfile$" . groovy-mode)))
+  :config
+  (setf (alist-get "Jenkinsfile$" auto-mode-alist) 'groovy-mode))
 
 (use-package powershell)
 
 (use-package sass-mode
-  :mode "\\.scss\\'")
+  :mode "\\.sass\\'"
+  :config
+  (setf (alist-get "\\.scss$" auto-mode-alist) 'scss-mode))
 
 (use-package emmet-mode
   :config
@@ -229,8 +231,10 @@
       compilation-error-regexp-alist
         (cons 'msft compilation-error-regexp-alist))
 
-;; XML mode for *.*proj
-(add-to-list 'auto-mode-alist '("\\.[^.]*proj\\'" . nxml-mode))
+;; XML mode for *.*proj and other .NET XML files
+(setf (alist-get "\\.[^.]*proj$" auto-mode-alist) 'nxml-mode)
+(setf (alist-get "\\.targets$" auto-mode-alist) 'nxml-mode)
+(setf (alist-get "\\.config$" auto-mode-alist) 'nxml-mode)
 
 (prefer-coding-system 'utf-8)
 
