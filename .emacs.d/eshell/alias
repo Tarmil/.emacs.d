@@ -1,2 +1,2 @@
-alias fsgrep grep $* ${find . -name '*.fs' -o -name '*.fs?'}
+alias fsgrep grep $* ${find . -name \\*.fs -o -name \\*.fs?}
 alias ff find-file $1
