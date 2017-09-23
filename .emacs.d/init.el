@@ -230,7 +230,7 @@
 
 ;; Fix msft regexp for fsc and wsfsc output
 (setf (alist-get 'msft compilation-error-regexp-alist-alist)
-        '("^ *\\(?:[0-9]+>\\)?\\(\\(?:[a-zA-Z]:\\)?[^:(	\n]+\\)(\\([0-9]+\\)\\(?:,\\([0-9]+\\)\\(?:,[0-9]+,[0-9]+\\)?\\)?) ?:\\( \\(?:[a-z]+ \\)?warning\\(?: [A-Z0-9]+:\\)\\)?" 1 2 3 (4))
+        '("^ *\\(?:[0-9]+>\\)?\\(\\(?:[a-zA-Z]:\\)?[^:(	\n]+\\)(\\([0-9]+\\)\\(?:,\\([0-9]+\\)\\(?:,[0-9]+,[0-9]+\\)?\\)?) ?:\\( \\(?:[A-Za-z]+ \\)?warning\\(?: [A-Z0-9]+:\\)\\)?" 1 2 3 (4))
       compilation-error-regexp-alist
         (cons 'msft compilation-error-regexp-alist))
 
