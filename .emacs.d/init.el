@@ -9,6 +9,7 @@
 			 ("melpa-stable" . "https://stable.melpa.org/packages/")
 			 ("gnu" . "https://elpa.gnu.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")))
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 (eval-when-compile
   (package-initialize)
   (unless (package-installed-p 'use-package)
@@ -100,6 +101,9 @@
   (add-hook 'prog-mode-hook 'highlight-symbol-mode)
   :bind (("M-s" . highlight-symbol-at-point)
          ("M-S" . highlight-symbol-remove-all)))
+
+(use-package imenu-anywhere
+  :bind (("C-c C-g" . ido-imenu-anywhere)))
 
 (use-package multiple-cursors
   :bind (("M->" . mc/mark-next-like-this)
@@ -206,10 +210,16 @@
       (with-current-buffer main-buffer
         (restclient-mode)))))
 
+(use-package org
+  :pin org
+  :config
+  (setf org-log-done 'time))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Version control helpers
 
 (use-package magit
+  :pin melpa
   :bind (("C-x g" . magit-status)
          :map magit-mode-map
          ("M-w" . switch-to-buffer)))
@@ -237,6 +247,7 @@
 ;; XML mode for *.*proj and other .NET XML files
 (setf (alist-get "\\.[^.]*proj$" auto-mode-alist) 'nxml-mode)
 (setf (alist-get "\\.targets$" auto-mode-alist) 'nxml-mode)
+(setf (alist-get "\\.props$" auto-mode-alist) 'nxml-mode)
 (setf (alist-get "\\.config$" auto-mode-alist) 'nxml-mode)
 
 (prefer-coding-system 'utf-8)
@@ -266,7 +277,7 @@
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (editorconfig rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
+    (org imenu-anywhere editorconfig rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
  '(ring-bell-function (quote ignore))
  '(sentence-end-double-space nil)
  '(show-paren-mode t)
@@ -280,4 +291,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 80 :family "DejaVu Sans Mono")))))
+ '(default ((t (:height 80 :family "DejaVu Sans Mono"))))
+ '(markdown-code-face ((t (:inherit nil :foreground "#b294bb")))))
