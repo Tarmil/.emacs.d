@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        beginning-of-visual-line
         comment-dwim
         electric-newline-and-maybe-indent
         ergoemacs-copy-line-or-region
@@ -11,16 +12,25 @@
         forward-sexp
         indent-for-tab-command
         indent-rigidly
+        insert-parentheses
         mark-sexp
         markdown-outdent-or-delete
         nxml-electric-slash
         nxml-finish-element
+        org-cycle
+        org-delete-char
+        org-self-insert-command
+        tab-to-tab-stop
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        ergoemacs-keyboard-quit
+        ergoemacs-move-cursor-next-pane
         ido-find-file
         ignore
+        magit-diff-visit-file
         magit-status
         org-time-stamp
+        smex
         ))
