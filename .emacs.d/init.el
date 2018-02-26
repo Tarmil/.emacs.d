@@ -155,13 +155,15 @@
 (use-package tuareg)
 
 (use-package markdown-mode
-  :config
-  (defun text-mode-init ()
-    (toggle-word-wrap 1))
-  (add-hook 'text-mode-hook 'text-mode-init)
   :bind (:map markdown-mode-map
          ("M-n" . forward-char)
          ("M-p" . kill-word)))
+
+(defun text-mode-init ()
+  (visual-line-mode 1)
+  (toggle-word-wrap 1))
+(add-hook 'text-mode-hook 'text-mode-init)
+(add-hook 'org-mode-hook 'text-mode-init)
 
 (use-package groovy-mode
   :config
