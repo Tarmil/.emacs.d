@@ -31,6 +31,7 @@
         ignore
         magit-diff-visit-file
         magit-status
+        next-error
         org-time-stamp
         smex
         ))

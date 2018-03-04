@@ -219,6 +219,10 @@
   :config
   (setf org-log-done 'time))
 
+(defun my-dired-mode ()
+  (define-key dired-mode-map (kbd "C-c C-c") 'wdired-change-to-wdired-mode))
+(add-hook 'dired-mode 'my-dired-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Version control helpers
 
