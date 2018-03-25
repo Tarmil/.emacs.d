@@ -190,6 +190,23 @@
 (use-package rust-mode
   :pin melpa)
 
+(use-package lsp-mode
+  :pin melpa
+  :init
+  :config
+  (use-package lsp-flycheck
+    :ensure f ; comes with lsp-mode
+    :after flycheck))
+
+(use-package lsp-rust
+  :pin melpa
+  :after lsp-mode
+  :init
+  (setq lsp-rust-rls-command '("rustup" "run" "nightly" "rls"))
+  (add-hook 'rust-mode-hook 'lsp-rust-enable)
+  (add-hook 'rust-mode-hook 'flycheck-mode)
+  :bind (("C-c C-d" . xref-find-definitions)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Other modes
 
@@ -285,7 +302,7 @@
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (csharp-mode org imenu-anywhere editorconfig rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
+    (lsp-rust f lsp-mode csharp-mode org imenu-anywhere editorconfig rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
  '(ring-bell-function (quote ignore))
  '(sentence-end-double-space nil)
  '(show-paren-mode t)
@@ -300,4 +317,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:height 80 :family "DejaVu Sans Mono"))))
+ '(lsp-face-highlight-textual ((t (:background "black"))))
  '(markdown-code-face ((t (:inherit nil :foreground "#b294bb")))))
+
