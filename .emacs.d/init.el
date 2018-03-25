@@ -226,7 +226,7 @@
            (main-window (get-buffer-window main-buffer t))
            (frame (window-frame main-window))
            (result-buffer (get-buffer-create "*HTTP Response*"))
-           (result-window (split-window-below)))
+           (result-window (progn (delete-other-windows) (split-window-below))))
       (set-window-buffer result-window result-buffer)
       (with-current-buffer main-buffer
         (restclient-mode)))))
