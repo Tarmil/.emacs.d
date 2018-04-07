@@ -152,7 +152,17 @@
 
 (use-package idris-mode)
 
-(use-package tuareg)
+(use-package auto-complete)
+(use-package iedit)
+(use-package merlin
+  :config
+  (setq merlin-ac-setup 'easy)
+  :bind (:map merlin-mode-map
+         ("C-<tab>" . auto-complete)))
+
+(use-package tuareg
+  :config
+  (add-hook 'tuareg-mode-hook 'merlin-mode))
 
 (use-package markdown-mode
   :bind (:map markdown-mode-map
@@ -303,7 +313,7 @@
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (lsp-rust f lsp-mode csharp-mode org imenu-anywhere editorconfig rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
+    (iedit auto-complete merlin lsp-rust f lsp-mode csharp-mode org imenu-anywhere editorconfig rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
  '(ring-bell-function (quote ignore))
  '(sentence-end-double-space nil)
  '(show-paren-mode t)
