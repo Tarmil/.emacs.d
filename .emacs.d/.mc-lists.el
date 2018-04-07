@@ -28,6 +28,7 @@
         ergoemacs-keyboard-quit
         ergoemacs-move-cursor-next-pane
         ido-find-file
+        ido-switch-buffer
         ignore
         magit-diff-visit-file
         magit-status

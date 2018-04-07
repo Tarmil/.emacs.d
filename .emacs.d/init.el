@@ -290,6 +290,7 @@
  '(delete-old-versions t)
  '(electric-pair-mode t)
  '(fill-column 79)
+ '(gdb-many-windows t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(initial-scratch-message nil)
