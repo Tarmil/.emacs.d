@@ -235,6 +235,9 @@
       (with-current-buffer main-buffer
         (restclient-mode)))))
 
+(use-package htmlize
+  :pin melpa-stable)
+
 (use-package org
   :pin org
   :config
@@ -306,7 +309,7 @@
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (lsp-rust f lsp-mode csharp-mode org imenu-anywhere editorconfig rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
+    (htmlize lsp-rust f lsp-mode csharp-mode org imenu-anywhere editorconfig rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
  '(ring-bell-function (quote ignore))
  '(sentence-end-double-space nil)
  '(show-paren-mode t)
