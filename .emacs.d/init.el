@@ -176,6 +176,10 @@
   :config
   (setf (alist-get "\\.scss$" auto-mode-alist) 'scss-mode))
 
+(defun js-mode-init ()
+  (setf js-indent-level 2))
+(add-hook 'js-mode-hook 'js-mode-init)
+
 (use-package emmet-mode
   :config
   (add-hook 'sgml-mode-hook 'emmet-mode)
