@@ -323,7 +323,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 80 :family "DejaVu Sans Mono"))))
+ '(default ((t (:height 95 :family "DejaVu Sans Mono"))))
  '(lsp-face-highlight-textual ((t (:background "black"))))
  '(markdown-code-face ((t (:inherit nil :foreground "#b294bb")))))
 
