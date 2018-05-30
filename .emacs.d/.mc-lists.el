@@ -9,6 +9,7 @@
         ergoemacs-copy-line-or-region
         ergoemacs-cut-line-or-region
         ergoemacs-paste
+        ergoemacs-paste-cycle
         forward-sexp
         indent-for-tab-command
         indent-rigidly

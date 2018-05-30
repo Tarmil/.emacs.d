@@ -2,13 +2,13 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Initialize package and use-package
-
 (setf use-package-always-ensure t
       use-package-always-pin "melpa-stable"
       package-archives '(("melpa" . "https://melpa.org/packages/")
 			 ("melpa-stable" . "https://stable.melpa.org/packages/")
 			 ("gnu" . "https://elpa.gnu.org/packages/")
-                         ("org" . "http://orgmode.org/elpa/")))
+                         ("org" . "http://orgmode.org/elpa/"))
+      package-user-dir (concat "~/.emacs.d/packages/" emacs-version "/elpa"))
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (eval-when-compile
   (package-initialize)

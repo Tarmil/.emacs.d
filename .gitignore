@@ -10,6 +10,7 @@
 .emacs.d/ac-comphist.dat
 .emacs.d/server
 .emacs.d/ido.last
+.emacs.d/packages
 
 .xmonad/xmonad-x86_64-linux
 .xmonad/xmonad.errors
