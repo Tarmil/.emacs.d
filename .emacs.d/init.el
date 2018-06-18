@@ -2,13 +2,13 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Initialize package and use-package
-
 (setf use-package-always-ensure t
       use-package-always-pin "melpa-stable"
       package-archives '(("melpa" . "https://melpa.org/packages/")
 			 ("melpa-stable" . "https://stable.melpa.org/packages/")
 			 ("gnu" . "https://elpa.gnu.org/packages/")
-                         ("org" . "http://orgmode.org/elpa/")))
+                         ("org" . "http://orgmode.org/elpa/"))
+      package-user-dir (concat "~/.emacs.d/packages/" emacs-version "/elpa"))
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (eval-when-compile
   (package-initialize)
@@ -186,6 +186,10 @@
   :config
   (setf (alist-get "\\.scss$" auto-mode-alist) 'scss-mode))
 
+(defun js-mode-init ()
+  (setf js-indent-level 2))
+(add-hook 'js-mode-hook 'js-mode-init)
+
 (use-package emmet-mode
   :config
   (add-hook 'sgml-mode-hook 'emmet-mode)
@@ -240,6 +244,9 @@
       (set-window-buffer result-window result-buffer)
       (with-current-buffer main-buffer
         (restclient-mode)))))
+
+(use-package htmlize
+  :pin melpa-stable)
 
 (use-package org
   :pin org
@@ -313,7 +320,7 @@
      ("org" . "http://orgmode.org/elpa/"))))
  '(package-selected-packages
    (quote
-    (iedit auto-complete merlin lsp-rust f lsp-mode csharp-mode org imenu-anywhere editorconfig rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
+    (htmlize iedit auto-complete merlin lsp-rust f lsp-mode csharp-mode org imenu-anywhere editorconfig rust-mode toml-mode org-mode ergoemacs-mode git-gutter-fringe emmet-mode sass-mode web-mode multiple-cursors powershell groovy-mode highlight-symbol window-purpose restclient-test restclient tuareg markdown-mode idris-mode magit ahg rainbow-delimiters rainbow-delimiters-mode haskell-mode fsharp-mode smex ido-vertical-mode auctex color-theme-sanityinc-tomorrow use-package persistent-soft)))
  '(ring-bell-function (quote ignore))
  '(sentence-end-double-space nil)
  '(show-paren-mode t)
@@ -327,7 +334,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 80 :family "DejaVu Sans Mono"))))
+ '(default ((t (:height 95 :family "DejaVu Sans Mono"))))
  '(lsp-face-highlight-textual ((t (:background "black"))))
  '(markdown-code-face ((t (:inherit nil :foreground "#b294bb")))))
 
