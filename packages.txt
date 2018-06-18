@@ -1,0 +1,6 @@
+xmonad
+xmonad-contrib
+polybar
+rxvt-unicode
+dmenu
+siji-git

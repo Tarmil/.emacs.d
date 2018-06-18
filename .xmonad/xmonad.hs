@@ -10,7 +10,9 @@
 import XMonad
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
+import XMonad.Util.Run (safeSpawn)
 import Data.Monoid
+import Control.Monad
 import System.Exit
 import Graphics.X11.ExtraTypes.XF86
 
@@ -66,7 +68,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
-    , ((modm,               xK_p     ), spawn "dmenu_run")
+    , ((modm,               xK_p     ), spawn "dmenu_run -b")
 
     -- launch gmrun
     , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
@@ -123,7 +125,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
     --
-    -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
+    , ((modm              , xK_b     ), sendMessage ToggleStruts)
 
     -- Quit xmonad
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
@@ -238,7 +240,7 @@ myManageHook =
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = mempty
+myEventHook = docksEventHook
 
 ------------------------------------------------------------------------
 -- Status bars and logging
@@ -246,7 +248,19 @@ myEventHook = mempty
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
-myLogHook = return ()
+myLogHook =
+  let wsLog = dynamicLogWithPP $ def
+        { ppOutput = appendFile "/tmp/.xmonad-workspace-log" . (++ "\n")
+        , ppCurrent = wrap "%{u#0a0} " " %{-u}"
+        , ppVisible = wrap "%{u#b50} " " %{-u}"
+        , ppHidden = wrap " " " "
+        , ppOrder = \(ws:_) -> [ws]
+        }
+      titleLog = dynamicLogWithPP $ def
+        { ppOutput = appendFile "/tmp/.xmonad-title-log" . (++ "\n")
+        , ppOrder = \(_:_:t:_) -> [t]
+        } in
+  wsLog <+> titleLog
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -255,23 +269,17 @@ myLogHook = return ()
 -- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
 -- per-workspace layout choices.
 --
--- By default, do nothing.
-myStartupHook = return ()
+myStartupHook = docksStartupHook
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = xmonad =<< statusBar "xmobar" myPP toggleStrutsKey myConfig
-
-myPP = xmobarPP { ppOrder = \(ws:_:t:os) -> ws:t:os
-                , ppSep = " "
-                , ppHidden = xmobarColor "#ee9a00" ""
-                , ppTitle = xmobarColor "#009aee" ""
-                , ppCurrent = xmobarColor "green" "" . wrap "[" "]" }
-
-toggleStrutsKey XConfig { XMonad.modMask = modMask } = (modMask, xK_b)
+main = do
+  forM_ [".xmonad-workspace-log", ".xmonad-title-log"] $ \file -> do
+    safeSpawn "mkfifo" ["/tmp/" ++ file]
+  xmonad myConfig
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
@@ -279,7 +287,7 @@ toggleStrutsKey XConfig { XMonad.modMask = modMask } = (modMask, xK_b)
 --
 -- No need to modify this.
 --
-myConfig = defaultConfig {
+myConfig = def {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -301,3 +309,7 @@ myConfig = defaultConfig {
         logHook            = myLogHook,
         startupHook        = myStartupHook
     }
+
+--- Local Variables:
+--- compile-command: "xmonad --recompile"
+--- End:
