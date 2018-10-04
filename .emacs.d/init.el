@@ -274,7 +274,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Windows-specific settings
 
-(setenv "PATH" (concat "C:\\Program Files\\git\\usr\\bin;" (getenv "PATH")))
+(when (eq window-system 'w32)
+  (let* ((git-path "C:/Program Files/Git/usr/bin/")
+         (git-win-path (replace-regexp-in-string "/" "\\\\" git-path)))
+    (setenv "PATH" (concat git-win-path ";" (getenv "PATH")))
+    (add-to-list 'exec-path git-path)
+    (defun eshell-path-hook-fun ()
+      (setf eshell-path-env (concat git-win-path ";" eshell-path-env)
+            eshell-no-grep-available nil))
+    (add-hook 'eshell-mode-hook 'eshell-path-hook-fun))
+  (setq tramp-default-method "plink"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Misc settings
