@@ -6,6 +6,7 @@
         beginning-of-visual-line
         comment-dwim
         electric-newline-and-maybe-indent
+        ergoemacs-beginning-or-end-of-buffer
         ergoemacs-copy-line-or-region
         ergoemacs-cut-line-or-region
         ergoemacs-paste

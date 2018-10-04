@@ -208,9 +208,10 @@
   :pin melpa
   :init
   :config
-  (use-package lsp-flycheck
-    :ensure f ; comes with lsp-mode
-    :after flycheck))
+  ;; (use-package lsp-ui
+  ;;   :ensure f ; comes with lsp-mode
+  ;;   :after flycheck)
+  )
 
 (use-package lsp-rust
   :pin melpa
