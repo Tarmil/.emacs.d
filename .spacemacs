@@ -30,7 +30,9 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(csv
+   '(haskell
+     typescript
+     csv
      rust
      windows-scripts
      javascript
@@ -194,6 +196,7 @@ values."
    ;; literally to avoid performance issues. Opening a file literally means that
    ;; no major mode or minor modes are active. (default is 1)
    dotspacemacs-large-file-size 1
+   dotspacemacs-mode-line-theme 'spacemacs
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
@@ -325,7 +328,8 @@ you should place your code here."
   (add-to-list 'exec-path "c:/Users/ldenuziere/AppData/Local/Programs/Git/usr/bin")
   (add-hook 'markdown-mode-hook 'spacemacs/toggle-visual-line-navigation-on)
   (spacemacs/set-leader-keys-for-major-mode 'json-mode "p" 'json-pretty-print)
-  (spacemacs/set-leader-keys-for-major-mode 'json-mode "P" 'json-pretty-print-buffer))
+  (spacemacs/set-leader-keys-for-major-mode 'json-mode "P" 'json-pretty-print-buffer)
+  (define-key dired-mode-map (kbd "C-c C-c") 'wdired-change-to-wdired-mode))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -359,6 +363,7 @@ This function is called at the very end of Spacemacs initialization."
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(evil-want-Y-yank-to-eol nil)
+ '(nginx-indent-level 2)
  '(package-selected-packages
    (quote
     (ac-ispell ace-jump-helm-line ace-link ace-window adaptive-wrap afternoon-theme aggressive-indent alect-themes alert ample-theme ample-zen-theme anti-zenburn-theme anzu apropospriate-theme async auctex auctex-latexmk auto-compile auto-complete auto-dictionary auto-highlight-symbol auto-yasnippet autothemer avy badwolf-theme bind-key bind-map birds-of-paradise-plus-theme bubbleberry-theme busybee-theme cargo cherry-blossom-theme clean-aindent-mode clues-theme coffee-mode color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow column-enforce-mode company company-auctex company-quickhelp company-restclient company-statistics company-tern company-web csharp-mode cyberpunk-theme dakrone-theme darkburn-theme darkmine-theme darkokai-theme darktooth-theme dash dash-functional define-word diminish django-theme docker docker-tramp dockerfile-mode dracula-theme dumb-jump editorconfig elisp-slime-nav emmet-mode epl esh-help eshell-prompt-extras eshell-z espresso-theme eval-sexp-fu evil evil-anzu evil-args evil-ediff evil-escape evil-exchange evil-iedit-state evil-indent-plus evil-lisp-state evil-magit evil-matchit evil-mc evil-nerd-commenter evil-numbers evil-search-highlight-persist evil-surround evil-tutor evil-unimpaired evil-visual-mark-mode evil-visualstar exec-path-from-shell exotica-theme expand-region eyebrowse f fancy-battery farmhouse-theme fill-column-indicator flatland-theme flatui-theme flx flx-ido flycheck flycheck-pos-tip flycheck-rust flyspell-correct flyspell-correct-helm fsharp-mode fuzzy gandalf-theme gh-md git-commit git-link git-messenger git-timemachine gitattributes-mode gitconfig-mode gitignore-mode gntp gnuplot golden-ratio google-translate gotham-theme goto-chg grandshell-theme gruber-darker-theme gruvbox-theme haml-mode hc-zenburn-theme helm helm-ag helm-c-yasnippet helm-company helm-core helm-css-scss helm-descbinds helm-flx helm-gitignore helm-make helm-mode-manager helm-projectile helm-swoop helm-themes hemisu-theme heroku-theme highlight highlight-indentation highlight-numbers highlight-parentheses hl-todo htmlize hungry-delete hydra iedit indent-guide inkpot-theme ir-black-theme jazz-theme jbeans-theme js-doc js2-mode js2-refactor json-mode json-reformat json-snatcher know-your-http-well light-soap-theme link-hint linum-relative livid-mode log4e lorem-ipsum lush-theme macrostep madhat2r-theme magit magit-gitflow magit-popup majapahit-theme markdown-mode markdown-toc material-theme minimal-theme mmm-mode moe-theme molokai-theme monochrome-theme monokai-theme move-text multi-term multiple-cursors mustang-theme naquadah-theme neotree nginx-mode noctilux-theme ob-http ob-restclient obsidian-theme occidental-theme oldlace-theme omnisharp omtose-phellack-theme open-junk-file org-bullets org-category-capture org-download org-mime org-plus-contrib org-pomodoro org-present org-projectile organic-green-theme orgit packed paradox parent-mode pcre2el persp-mode phoenix-dark-mono-theme phoenix-dark-pink-theme pkg-info planet-theme popup popwin pos-tip powerline powershell professional-theme projectile pug-mode purple-haze-theme racer railscasts-theme rainbow-delimiters rebecca-theme request restart-emacs restclient restclient-helm reverse-theme rust-mode s sass-mode scss-mode seti-theme shell-pop simple-httpd skewer-mode slim-mode smartparens smeargle smyx-theme soft-charcoal-theme soft-morning-theme soft-stone-theme solarized-theme soothe-theme spacegray-theme spaceline spinner sql-indent subatomic-theme subatomic256-theme sublime-themes sunny-day-theme tablist tagedit tango-2-theme tango-plus-theme tangotango-theme tao-theme tern toc-org toml-mode toxi-theme transient twilight-anti-bright-theme twilight-bright-theme twilight-theme ujelly-theme underwater-theme undo-tree use-package uuidgen vi-tilde-fringe volatile-highlights web-beautify web-completion-data web-mode which-key white-sand-theme winum with-editor ws-butler xterm-color yaml-mode yasnippet zen-and-art-theme zenburn-theme))))
